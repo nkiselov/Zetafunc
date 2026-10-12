@@ -8,7 +8,7 @@
         <script src="views/setCalcView.js"></script>
         <!-- Step 2: add an element to the page -->
         <h id="score">0 pts</h>
-        <div id="calculator" style="width: 100%; height: 1000px;"></div>
+        <div id="calculator" style="width: 100%; height: 94vh;"></div>
 
         <!-- Step 3: add the following lines of javascript -->
         <script>
@@ -16,22 +16,28 @@
             var calculator = Desmos.GraphingCalculator(elt)
 
             let hide = false
-            calculator.setExpression({ id: 'domain_left', latex: 'D_L(u)=-10', hidden:true, secret:hide})
-            calculator.setExpression({ id: 'domain_right', latex: 'D_R(u)=10', hidden:true, secret:hide})
+            calculator.setExpression({ id: 'domain_left', latex: 'D_L(u)=-2', hidden:true, secret:hide})
+            calculator.setExpression({ id: 'domain_right', latex: 'D_R(u)=2', hidden:true, secret:hide})
             calculator.setExpression({ id: 'score_raw', latex: 'S_r(u)=\\frac{\\int_{D_L(0)}^{D_R(0)}\\left(g\\left(t\\right)-f\\left(t\\right)\\right)^{2}dt}{\\int_{D_L(0)}^{D_R(0)}f\\left(t\\right)^{2}dt}', hidden:true, secret:hide})
             calculator.setExpression({ id: 'score', latex: 'S_f(u)=\\max\\left(0,-\\frac{1}{6}\\log\\left(\\max\\left(10^{-6},S_r(0)\\right)\\right)\\right)',hidden:true, secret:hide})
             calculator.setExpression({ id: 'user_domain_left', latex: 'L=D_L(0)', hidden:true, secret:true})
             calculator.setExpression({ id: 'user_domain_right', latex: 'R=D_R(0)', hidden:true, secret:true})
             calculator.setExpression({ id: 'user_score', latex: 'S=S_f(0)', hidden:true, secret:true})
 
-            calculator.setExpression({ id: 'secret_func', latex: 'f(x)=1', secret:hide})
-            calculator.setExpression({ id: 'guess', latex: 'g(x)=0'})
+            calculator.setExpression({ id: 'secret_func', latex: 'f(x)=\\frac{1}{10}\\sum_{n=0}^{10}\\sin\\left(nx\\right)', secret:hide})
+            calculator.setExpression({ id: 'guess', latex: 'g(x)=0.2\\sin(2x)'})
             let scoreFunc = calculator.HelperExpression({ latex: 'S_f(0)'});
             scoreFunc.observe('numericValue', function () {
                 if(isNaN(scoreFunc.numericValue)){
                     document.getElementById('score').innerHTML = "INVALID";
                 }else document.getElementById('score').innerHTML = Math.round(1000*scoreFunc.numericValue)+" pts";
             });
+            calculator.setMathBounds({
+                xmin: -2,
+                xmax: 2,
+                ymin: -2,
+                ymax: 2
+            })
 
             setInterval(()=>{
                 let view = calculator.graphpaperBounds.mathCoordinates
