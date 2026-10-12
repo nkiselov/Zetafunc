@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <!-- Step 1: include our secure javascript file -->
+        <script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=42f05a32159b4d2e93b33d1a201e3e17"></script>
+        <script src="views/setCalcView.js"></script>
+        <!-- Step 2: add an element to the page -->
+        <h id="score">0 pts</h>
+        <div id="calculator" style="width: 100%; height: 1000px;"></div>
+
+        <!-- Step 3: add the following lines of javascript -->
+        <script>
+            var elt = document.getElementById('calculator')
+            var calculator = Desmos.GraphingCalculator(elt)
+
+            calculator.setExpression({ id: 'domain_left', latex: 'D_L(u)=-10', hidden:true, secret:true})
+            calculator.setExpression({ id: 'domain_right', latex: 'D_R(u)=10', hidden:true, secret:true})
+            calculator.setExpression({ id: 'secret_func', latex: 'f(x)=\\floor(x)+0g(x)\\left\\{x>D_L(0)\\right\\}\\left\\{x<D_R(0)\\right\\}', secret:true})
+            calculator.setExpression({ id: 'score_raw', latex: 'S_r(u)=\\frac{\\int_{D_L(0)}^{D_R(0)}\\left(g\\left(t\\right)-f\\left(t\\right)\\right)^{2}dt}{\\int_{D_L(0)}^{D_R(0)}f\\left(t\\right)^{2}dt}', hidden:true, secret:true})
+            calculator.setExpression({ id: 'score', latex: 'S_f(u)=\\max\\left(0,-\\frac{1}{10}\\log\\left(\\max\\left(10^{-10},S_r(0)\\right)\\right)\\right)',hidden:true, secret:true})
+            calculator.setExpression({ id: 'user_domain_left', latex: 'L=D_L(0)', hidden:true, secret:true})
+            calculator.setExpression({ id: 'user_domain_right', latex: 'R=D_R(0)', hidden:true, secret:true})
+            calculator.setExpression({ id: 'user_score', latex: 'S=S_f(0)', hidden:true, secret:true})
+
+            calculator.setExpression({ id: 'guess', latex: 'g(x)=0'})
+            let scoreFunc = calculator.HelperExpression({ latex: 'S_f(0)'});
+            scoreFunc.observe('numericValue', function () {
+                if(isNaN(scoreFunc.numericValue)){
+                    document.getElementById('score').innerHTML = "INVALID";
+                }else document.getElementById('score').innerHTML = Math.round(1000*scoreFunc.numericValue)+" pts";
+            });
+
+            setInterval(()=>{
+                let view = calculator.graphpaperBounds.mathCoordinates
+                console.log({
+                    xmin: view.xmin,
+                    xmax: view.xmax,
+                    ymin: view.ymin,
+                    ymax: view.ymax
+                })
+            },1000)
+        </script>
+    </body>
+</html>

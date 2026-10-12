@@ -1,0 +1,164 @@
+html{
+    width: 100vw;
+    height: 100vh;
+}
+
+body{
+    margin: 4px;
+    width: calc(100vw - 10px);
+    height: calc(100vh - 10px);
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+}
+
+.hbox{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    width: 100%;
+}
+
+.vbox{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+}
+
+.desmos{
+    flex: 1;
+}
+
+.topBar > *{
+    white-space: nowrap;
+}
+
+.topBar{
+    justify-content: space-between;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.topBarLeft{
+    justify-content: space-around;
+    width: 40%;
+    margin-left: 30%;
+}
+
+.topBar > h{
+    font-size: 28px;
+    color: green;
+}
+
+.topBarLeft > h{
+    font-size: 28px;
+}
+
+.topBarLeft > button{
+    font-size: 22px;
+}
+
+.scoreView{
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.scoreView > h{
+    font-size: 48px;
+}
+
+.loading{
+    align-items: center;
+    justify-content: center;
+}
+
+.loading > h{
+    font-size: 48px;
+}
+
+.nameInput{
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.nameInput > h {
+    font-size: 48px;
+}
+
+.nameInput * {
+    font-size: 32px;
+}
+
+.nameInput > .hbox{
+    justify-content: center;
+}
+
+.ready > h {
+    font-size: 64px;
+}
+
+.ready {
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.topBarLeftTime{
+    justify-content: center;
+}
+
+.topBarLeftTime > h{
+    font-size: 64px;
+}
+
+.submissionBar{
+    font-size: 48px;
+    justify-content: center;
+}
+
+.lobbyMain{
+    align-items: center;
+}
+
+.lobbyMain > *{
+    font-size: 64px;
+}
+
+.lobbyMain > .hbox{
+    flex-wrap: wrap;
+}
+
+.lobbyBox{
+    margin: 10px;
+    border: 3px black solid;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.lobbyBox > h{
+    white-space: nowrap;
+}
+
+.boardBox{
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    border: 3px black solid;
+    width: 600px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.boardMain{
+    align-items: center;
+    overflow: hidden;
+}
+
+.boardMain > *{
+    font-size: 64px;
+}
